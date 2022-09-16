@@ -1,55 +1,42 @@
-
 public class EmployeeApp {
 
-	public static void main(String[] args) { 
-		// TODO Auto-generated method stub
+	public static void main(String[] args) {
+		Employee employee1 = new Employee(101, "yash", Department.DEVELOPMENT, 45000);
+		Employee employee2 = new Employee(102, "Mohit", Department.SUPPORT, 32000);
+		Employee employee3 = new Employee(103, "Sumit", Department.MANAGEMENT, 135000);
+		Employee employee4 = new Employee(104, "Rohit", Department.DEVELOPMENT, 53000);
+		Employee employee5 = new Employee(105, "Dinesh", Department.FINANCE, 71000);
+		Employee employee6 = new Employee(106, "Rohit", Department.MANAGEMENT, 210000);
+		Employee employee7 = new Employee(101, "kohli", Department.FINANCE, 132000);
 
-		Employee empArray[] = new Employee[5];
-		empArray[0] = new Employee (1, "Sim", "CS", 200000);
-		empArray[1] = new Employee (2, "Abc", "CS", 100000);
-		empArray[2] = new Employee (1, "Sim", "EnTC", 400000);
-		empArray[3] = new Employee (4, "Xyz", "Mechanical", 300000);
-		empArray[4] = new Employee (5, "Ben", "Civil", 500000);
-		sortEmployees(empArray);
-		searchEmployee("CS", empArray);
-		System.out.println(empArray[1].equals(empArray[3]));
+		Employee[] empArray = { employee1, employee2, employee3, employee4, employee5, employee6 };
+
+		EmployeeOperation empOperation = new EmployeeOperation();
+
+		Employee[] sortedEmployees = empOperation.sortEmployees(empArray);
+
+		System.out.println("Employee sorted based on their gross salary is is -> ");
+		for (Employee emp : sortedEmployees)
+			System.out.println(emp.getEmpName() + " - " + emp.getEmpGrossSalary());
+
+		System.out.println("-------------------------***------------------------");
+
+		Employee[] developmentEmployees = empOperation.searchEmployees(empArray, Department.DEVELOPMENT);
+
+		for (Employee emp : developmentEmployees)
+			System.out.println("Employee of " + Department.DEVELOPMENT + " department is -> " + emp.getEmpName());
+
+		Employee[] managementEmployees = empOperation.searchEmployees(empArray, Department.MANAGEMENT);
+
+		for (Employee emp : managementEmployees)
+			System.out.println("Employee of " + Department.MANAGEMENT + " department is -> " + emp.getEmpName());
 		
+		System.out.println("---------------------------***-------------------------");
+		
+		System.out.println(employee6.equals(employee2));
+		System.out.println(employee7.equals(employee1));
+		
+
 	}
 
-	public static void sortEmployees(Employee[] empArray) {
-		Employee temp = new Employee();
-		// TODO Auto-generated method stub
-		for(int i=0; i<5; i++) {
-			for(int j=i+1; j<5; j++) {
-				if(empArray[i].empBasicSalary < empArray[j].empBasicSalary) {
-					temp = empArray[i];
-					empArray[i] = empArray[j];
-					empArray[j] = temp;
-				}
-			}
-		}
-		System.out.println("Employees in ascending order of their salary are : ");
-		for(Employee e : empArray) {
-			System.out.println(e.empId+" "+e.empBasicSalary);
-		}
-		System.out.println("-----------------------------");
-	}
-	
-	public static void searchEmployee(String empDept, Employee[] empArray) {
-		int flag = 0;
-		int count = 0;
-		for(Employee e : empArray) {
-			if(e.empDept == empDept) {
-				flag = 1;
-				count++;
-			}
-		}
-		
-		if(flag == 0) {
-			System.out.println("Employee not found :(");
-		}else {
-			System.out.println(count+" employee found with department "+empDept);
-		}
-	}
-	
 }
